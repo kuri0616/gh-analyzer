@@ -1,0 +1,30 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+// Require the autoloader
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+} else {
+    require_once __DIR__ . '/../vendor/autoload.php';
+}
+
+// Bootstrap Laravel and handle the command.
+$app = require __DIR__ . '/bootstrap/app.php';
+
+try {
+    $kernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
+
+    $status = $kernel->handle(
+        $input = new \Symfony\Component\Console\Input\ArgvInput,
+        new ConsoleOutput
+    );
+
+    $kernel->terminate($input, $status);
+
+    exit($status);
+} catch (Exception $e) {
+    (new ConsoleOutput)->writeln('<error>' . $e->getMessage() . '</error>');
+    exit(1);
+}
