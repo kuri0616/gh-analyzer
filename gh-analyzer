@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * GitHub Analyzer CLI Application
+ * A CLI tool for analyzing GitHub repositories and organizations
+ */
+
+require __DIR__.'/bootstrap/bootstrap.php';
+
+use App\Console\Application;
+
+$app = new Application();
+$app->run($argv ?? []);

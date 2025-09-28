@@ -1,0 +1,24 @@
+services:
+  gh-analyzer:
+    build: .
+    container_name: gh-analyzer
+    volumes:
+      - .:/app
+      - ~/.gitconfig:/root/.gitconfig:ro
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+    working_dir: /app
+    
+  # Development service with shell access
+  gh-analyzer-dev:
+    build: .
+    container_name: gh-analyzer-dev
+    volumes:
+      - .:/app
+      - ~/.gitconfig:/root/.gitconfig:ro
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+    working_dir: /app
+    entrypoint: ["/bin/sh"]
+    stdin_open: true
+    tty: true
