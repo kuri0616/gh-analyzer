@@ -30,3 +30,6 @@ tmp/
 # Build artifacts
 build/
 dist/
+
+# Test outputs
+test-output/
